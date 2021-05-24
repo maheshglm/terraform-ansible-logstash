@@ -1,0 +1,6 @@
+---
+
+jre_version: java-1.8.0-openjdk
+
+logstash_version: '7.x'
+logstash_package: logstash

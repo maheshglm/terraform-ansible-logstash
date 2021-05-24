@@ -1,0 +1,30 @@
+---
+
+- name: Include variables
+  include_vars:
+    file: ../../../vars.yml
+
+- name: Add Elasticsearch GPG key.
+  become: True
+  rpm_key:
+    key: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    state: present
+
+- name: Add Logstash repository.
+  become: True
+  template:
+    src: logstash.repo.j2
+    dest: /etc/yum.repos.d/logstash.repo
+    mode: 0644
+
+- name: Install Logstash.
+  become: True
+  package:
+    name: logstash
+    state: present
+    
+- name: Start Logstash Service
+  become: yes
+  service:
+    name: logstash
+    state: started

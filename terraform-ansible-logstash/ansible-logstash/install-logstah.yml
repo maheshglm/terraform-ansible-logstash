@@ -1,0 +1,24 @@
+---
+
+- hosts: all
+  gather_facts: yes
+
+  vars_files:
+    - vars.yml
+
+  pre_tasks:
+    - name: update yum cache if needed
+      become: yes
+      yum:
+        update_cache=yes
+        
+    - name: Install Java runtime environment
+      become: yes
+      yum:
+        name: "{{ jre_version }}"
+        state: present
+
+  roles:
+     - logstash
+      
+
